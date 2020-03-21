@@ -73,8 +73,6 @@ export default class DoubleTapView extends Component {
     handlePanResponderRelease = (evt, gestureState) => {
 
         const currentTouchTimeStamp = Date.now();
-        const x = evt.nativeEvent.locationX;
-        const y = evt.nativeEvent.locationY; 
 
         if (this.timer) {
 
@@ -92,7 +90,7 @@ export default class DoubleTapView extends Component {
                 // if not in radius, it's a move
                 if (this.distance(prevTouchX, prevTouchY, gestureState.x0, gestureState.y0) < radius) {
                     this.timer = null;
-                    this.props.onSingleTap(x, y);
+                    this.props.onSingleTap();
                 }
 
             }
@@ -101,7 +99,7 @@ export default class DoubleTapView extends Component {
             if (this.distance(0, gestureState.dx, 0, gestureState.dy) < 10) {
 
                 this.timer = setTimeout(() => {
-                    this.props.onSingleTap(x, y);
+                    this.props.onSingleTap();
                     this.timer = null;
                 }, this.props.delay);
             }

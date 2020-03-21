@@ -55,7 +55,7 @@ export default class PdfView extends Component {
         page: 1,
         currentPage: -1,
         enablePaging: false,
-        onPageSingleTap: (page, x, y) => {
+        onPageSingleTap: (page) => {
         },
         onScaleChanged: (scale) => {
         },
@@ -83,6 +83,9 @@ export default class PdfView extends Component {
         this._scrollTimer = null;
         this._mounted = false;
 
+    }
+
+    componentWillMount() {
     }
 
     componentDidMount() {
@@ -218,9 +221,9 @@ export default class PdfView extends Component {
         }}/>
     );
 
-    _onItemSingleTap = (index, x, y) => {
+    _onItemSingleTap = (index) => {
 
-        this.props.onPageSingleTap(index + 1, x, y);
+        this.props.onPageSingleTap(index + 1);
 
     };
 
@@ -260,8 +263,8 @@ export default class PdfView extends Component {
 
         return (
             <DoubleTapView style={{flexDirection: this.props.horizontal ? 'row' : 'column'}}
-                           onSingleTap={(x, y) => {
-                               this._onItemSingleTap(index, x, y);
+                           onSingleTap={() => {
+                               this._onItemSingleTap(index);
                            }}
                            onDoubleTap={() => {
                                this._onItemDoubleTap(index);

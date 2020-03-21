@@ -16,13 +16,13 @@ import {
     ProgressBarAndroid,
     ProgressViewIOS,
     ViewPropTypes,
-    StyleSheet,
-    Image
+    StyleSheet
 } from 'react-native';
 
 import RNFetchBlob from 'rn-fetch-blob';
 
 const SHA1 = require('crypto-js/sha1');
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import PdfView from './PdfView';
 
 export default class Pdf extends Component {
@@ -86,7 +86,6 @@ export default class Pdf extends Component {
         enableRTL: false,
         activityIndicatorProps: {color: '#009900', progressTintColor: '#009900'},
         trustAllCerts: true,
-        usePDFKit: true,
         onLoadProgress: (percent) => {
         },
         onLoadComplete: (numberOfPages, path) => {
@@ -95,7 +94,7 @@ export default class Pdf extends Component {
         },
         onError: (error) => {
         },
-        onPageSingleTap: (page, x, y) => {
+        onPageSingleTap: (page) => {
         },
         onScaleChanged: (scale) => {
         },
@@ -119,8 +118,8 @@ export default class Pdf extends Component {
 
     componentDidUpdate(prevProps) {
 
-        const nextSource = Image.resolveAssetSource(this.props.source);
-        const curSource = Image.resolveAssetSource(prevProps.source);
+        const nextSource = resolveAssetSource(this.props.source);
+        const curSource = resolveAssetSource(prevProps.source);
 
         if ((nextSource.uri !== curSource.uri)) {
             // if has download task, then cancel it.
@@ -160,7 +159,7 @@ export default class Pdf extends Component {
 
     _loadFromSource = (newSource) => {
 
-        const source = Image.resolveAssetSource(newSource) || {};
+        const source = resolveAssetSource(newSource) || {};
 
         let uri = source.uri || '';
 
@@ -372,7 +371,7 @@ export default class Pdf extends Component {
             } else if (message[0] === 'error') {
                 this._onError(new Error(message[1]));
             } else if (message[0] === 'pageSingleTap') {
-                this.props.onPageSingleTap && this.props.onPageSingleTap(message[1], message[2], message[3]);
+                this.props.onPageSingleTap && this.props.onPageSingleTap(message[1]);
             } else if (message[0] === 'scaleChanged') {
                 this.props.onScaleChanged && this.props.onScaleChanged(message[1]);
             } else if (message[0] === 'linkPressed') {
@@ -389,6 +388,7 @@ export default class Pdf extends Component {
     };
 
     render() {
+
         if (Platform.OS === "android" || Platform.OS === "ios") {
                 return (
                     <View style={[this.props.style,{overflow: 'hidden'}]}>
@@ -421,7 +421,7 @@ export default class Pdf extends Component {
                                             onChange={this._onChange}
                                         />
                                     ):(
-                                        this.props.usePDFKit && this.state.isSupportPDFKit === 1?(
+                                        this.state.isSupportPDFKit === 1?(
                                                 <PdfCustom
                                                     ref={component => (this._root = component)}
                                                     {...this.props}
