@@ -122,7 +122,7 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
             "topChange",
             event
          );
-
+        setBackgroundColor(Color.TRANSPARENT);
         //Log.e("ReactNative", gson.toJson(this.getTableOfContents()));
 
     }

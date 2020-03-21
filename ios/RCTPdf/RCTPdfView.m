@@ -85,7 +85,7 @@ const float MIN_SCALE = 1.0f;
         
         [[_pdfView document] setDelegate: self];
         [_pdfView setDelegate: self];
-        
+        [_pdfView setBackgroundColor: [UIColor clearColor]];
         
         [self bindTap];
     }
@@ -278,6 +278,7 @@ const float MIN_SCALE = 1.0f;
     _initialed = YES;
     
     [self didSetProps:_changedProps];
+    [_pdfView setBackgroundColor: [UIColor clearColor]];
 }
 
 - (void)dealloc{
