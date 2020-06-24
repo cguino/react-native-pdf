@@ -263,7 +263,7 @@ const float MIN_SCALE = 1.0f;
             }
         }
         
-        
+        [[[[_pdfView subviews] firstObject] scrollView] setShowsHorizontalScrollIndicator: NO];
         [_pdfView layoutDocumentView];
         [self setNeedsDisplay];
     }
