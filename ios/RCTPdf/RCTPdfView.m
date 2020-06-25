@@ -262,8 +262,9 @@ const float MIN_SCALE = 1.0f;
                 _pdfView.scaleFactor = _fixScaleFactor*_scale;
             }
         }
-        
-        [[[[_pdfView subviews] firstObject] scrollView] setShowsHorizontalScrollIndicator: NO];
+        if ([[[_pdfView subviews] firstObject] isKindOfClass:[UIScrollView class]]) {
+            [[[_pdfView subviews] firstObject] setShowsHorizontalScrollIndicator: NO];
+        }
         [_pdfView layoutDocumentView];
         [self setNeedsDisplay];
     }
