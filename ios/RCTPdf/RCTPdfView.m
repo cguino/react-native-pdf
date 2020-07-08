@@ -264,6 +264,8 @@ const float MIN_SCALE = 1.0f;
         }
         if ([[[_pdfView subviews] firstObject] isKindOfClass:[UIScrollView class]]) {
             [[[_pdfView subviews] firstObject] setShowsHorizontalScrollIndicator: NO];
+        } else if ([[[_pdfView subviews] firstObject] scrollView]) {
+            [[[[_pdfView subviews] firstObject] scrollView] setShowsHorizontalScrollIndicator: NO];
         }
         [_pdfView layoutDocumentView];
         [self setNeedsDisplay];
