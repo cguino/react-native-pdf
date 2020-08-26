@@ -185,7 +185,7 @@ const float MIN_SCALE = 1.0f;
         
         if (_pdfDocument && ([changedProps containsObject:@"path"] || [changedProps containsObject:@"fitPolicy"] || [changedProps containsObject:@"minScale"] || [changedProps containsObject:@"maxScale"])) {
             
-            PDFPage *pdfPage = [_pdfDocument pageAtIndex:_pdfDocument.pageCount-1];
+            PDFPage *pdfPage = [_pdfDocument pageAtIndex:0];
             CGRect pdfPageRect = [pdfPage boundsForBox:kPDFDisplayBoxCropBox];
             
             // some pdf with rotation, then adjust it
